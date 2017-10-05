@@ -4,10 +4,11 @@ import video_dir
 import car_dir
 import motor
 import os
+import constant
 
 
 # Run camera
-LD_LIBRARY_PATH = "/home/pi/Sunfounder_Smart_Video_Car_Kit_for_RaspberryPi/mjpg-streamer/mjpg-streamer/"
+LD_LIBRARY_PATH = constant.BASE_DIR + "/../mjpg-streamer/mjpg-streamer/"
 
 MJPG_STREAMER_PATH = "mjpg_streamer"
 MJPG_STREAMER_PATH = LD_LIBRARY_PATH + MJPG_STREAMER_PATH
@@ -26,7 +27,7 @@ video_dir.home_x_y()
 car_dir.home()
 
 # Read config file
-FILE_CONFIG = "/home/pi/Sunfounder_Smart_Video_Car_Kit_for_RaspberryPi/server/config"
+FILE_CONFIG = constant.BASE_DIR + "/../server/config"
 offset = "0"
 offset_x = "0"
 offset_y = "0"

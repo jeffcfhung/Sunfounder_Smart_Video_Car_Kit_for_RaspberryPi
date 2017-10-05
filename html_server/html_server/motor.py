@@ -1,7 +1,13 @@
 #!/usr/bin/env python
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 import Sunfounder_PWM_Servo_Driver.Servo_init as pwm
 import time    # Import necessary modules
+
+from mock import patch, MagicMock
+
+
+MockRPi = MagicMock()
+GPIO = MockRPi.GPIO
 
 # ===========================================================================
 # Raspberry Pi pin11, 12, 13 and 15 to realize the clockwise/counterclockwise

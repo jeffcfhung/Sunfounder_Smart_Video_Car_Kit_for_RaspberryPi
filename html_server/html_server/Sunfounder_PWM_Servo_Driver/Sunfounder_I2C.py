@@ -1,6 +1,5 @@
 #!/usr/bin/python
-
-import smbus
+from mock import MagicMock
 
 RPI_REVISION_0 = ["900092"]
 RPI_REVISION_1_MODULE_B = ["Beta", "0002", "0003", "0004", "0005", "0006", "000d", "000e", "000f"]
@@ -9,6 +8,9 @@ RPI_REVISION_1_MODULE_BP = ["0010", "0013"]
 RPI_REVISION_1_MODULE_AP = ["0012"]
 RPI_REVISION_2 = ["a01041", "a21041"]
 RPI_REVISION_3 = ["a02082", "a22082"]
+
+MOCK = True
+MockBus = MagicMock()
 
 class Sunfounder_I2C(object):
 
@@ -72,11 +74,15 @@ class Sunfounder_I2C(object):
 
   def __init__(self, address, busnum=-1, debug=False):
     self.address = address
-    # By default, the correct I2C bus is auto-detected using /proc/cpuinfo
-    # Alternatively, you can hard-code the bus version below:
-    # self.bus = smbus.SMBus(0); # Force I2C0 (early 256MB Pi's)
-    # self.bus = smbus.SMBus(1); # Force I2C1 (512MB Pi's)
-    self.bus = smbus.SMBus(busnum if busnum >= 0 else Sunfounder_I2C.getPiRevision_2())
+    if not MOCK:
+        # By default, the correct I2C bus is auto-detected using /proc/cpuinfo
+        # Alternatively, you can hard-code the bus version below:
+        # self.bus = smbus.SMBus(0); # Force I2C0 (early 256MB Pi's)
+        # self.bus = smbus.SMBus(1); # Force I2C1 (512MB Pi's)
+        self.bus = smbus.SMBus(busnum if busnum >= 0 else Sunfounder_I2C.getPiRevision_2())
+    else:
+        self.bus = MockBus.SMBus()
+
     self.debug = debug
 
   def reverseByteOrder(self, data):

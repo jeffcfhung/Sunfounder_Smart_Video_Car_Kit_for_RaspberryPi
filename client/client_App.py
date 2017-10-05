@@ -8,8 +8,8 @@ ctrl_cmd = ['forward', 'backward', 'left', 'right', 'stop', 'read cpu_temp', 'ho
 top = Tk()   # Create a top window
 top.title('Sunfounder Raspberry Pi Smart Video Car')
 
-HOST = '192.168.0.147'    # Server(Raspberry Pi) IP address
-PORT = 21567
+HOST = '192.168.1.80'    # Server(Raspberry Pi) IP address
+PORT = 21568
 BUFSIZ = 1024             # buffer size
 ADDR = (HOST, PORT)
 
@@ -148,10 +148,11 @@ top.bind('<KeyPress-d>', right_fun)
 top.bind('<KeyPress-s>', backward_fun)
 top.bind('<KeyPress-w>', forward_fun)
 top.bind('<KeyPress-h>', home_fun)
-top.bind('<KeyRelease-a>', home_fun) # Release key 'A' and the car will turn back.
-top.bind('<KeyRelease-d>', home_fun)
-top.bind('<KeyRelease-s>', stop_fun)
-top.bind('<KeyRelease-w>', stop_fun)
+top.bind('<KeyPress-j>', stop_fun)
+#top.bind('<KeyRelease-a>', home_fun) # Release key 'A' and the car will turn back.
+#top.bind('<KeyRelease-d>', home_fun)
+#top.bind('<KeyReleasea-s>', stop_fun)
+#top.bind('<KeyRelease-w>', stop_fun)
 
 spd = 50
 
