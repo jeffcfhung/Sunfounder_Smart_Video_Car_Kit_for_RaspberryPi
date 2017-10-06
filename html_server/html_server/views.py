@@ -96,6 +96,16 @@ def camera_decrease_x(request):
 	video_dir.move_decrease_x()
 	return HttpResponse("Camera x-")
 
+def camera_y(request, angle):
+	angle = int(angle)
+	video_dir.move_y(angle)
+	return HttpResponse("Camera move y")
+
+def camera_x(request, angle):
+	angle = int(angle)
+	video_dir.move_x(angle)
+	return HttpResponse("Camera move x")
+
 def camera_home(request):
 	video_dir.home_x_y()
 	return HttpResponse("Camera back to defaultrequest")

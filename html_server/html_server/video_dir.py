@@ -26,12 +26,18 @@ def setup():
 				#print 'offset_y =', offset_y
 	except:
 		pass
+	'''
 	Xmin = MinPulse + offset_x
 	Xmax = MaxPulse + offset_x
 	Ymin = MinPulse + offset_y
 	Ymax = MaxPulse + offset_y
-	home_x = (Xmax + Xmin)/2
-	home_y = Ymin + 80
+	'''
+	Xmin = 180
+	Xmax = 660
+	Ymin = 170
+	Ymax = 610
+	home_x = 400
+	home_y = 220
 	pwm = servo.init()           # Initialize the servo controller. 
 
 # ==========================================================================================
@@ -89,6 +95,26 @@ def home_x_y():
 def calibrate(x,y):
 	pwm.setPWM(14, 0, (MaxPulse+MinPulse)/2+x)
 	pwm.setPWM(15, 0, (MaxPulse+MinPulse)/2+y)
+
+# x range 0 to 100
+def move_x(x):
+	global Current_x, Xmax, Xmin
+
+	x = 100 if x > 100 else x
+	x = 0 if x < 0 else x
+
+	Current_x = int(x/100.0*(Xmax-Xmin)) + Xmin
+	pwm.setPWM(14, 0, Current_x)
+
+# y range 0 to 100
+def move_y(y):
+	global Current_y, Ymax, Ymin
+	
+	y = 100 if y > 100 else y
+	y = 0 if y < 0 else y
+
+	Current_y = int(y/100.0*(Ymax-Ymin)) + Ymin
+	pwm.setPWM(15, 0, Current_y)
 
 def test():
 	while True:

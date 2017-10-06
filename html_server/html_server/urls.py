@@ -26,6 +26,8 @@ urlpatterns = [
     url(r'^camera/decrease/y', views.camera_decrease_y),
     url(r'^camera/increase/x', views.camera_increase_x),
     url(r'^camera/decrease/x', views.camera_decrease_x),
+    url(r'^camera/y/(\d{1,3})', views.camera_y),
+    url(r'^camera/x/(\d{1,3})', views.camera_x),
     url(r'^camera/home', views.camera_home),
     url(r'^motor/set/speed/(\d{1,3})', views.motor_set_speed),
     url(r'^turning/(\d{1,3})', views.turning),
