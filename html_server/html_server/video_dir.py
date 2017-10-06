@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 import Sunfounder_PWM_Servo_Driver.Servo_init as servo
 import time                  # Import necessary modules
+import os
 
 MinPulse = 200
 MaxPulse = 700
 
-FILE_CONFIG = "/home/pi/Sunfounder_Smart_Video_Car_Kit_for_RaspberryPi/server/config"
+#FILE_CONFIG = "/home/pi/Sunfounder_Smart_Video_Car_Kit_for_RaspberryPi/server/config"
+FILE_CONFIG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../server/config")
 
 Current_x = 0
 Current_y = 0

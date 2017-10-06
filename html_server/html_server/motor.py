@@ -2,6 +2,7 @@
 import RPi.GPIO as GPIO
 import Sunfounder_PWM_Servo_Driver.Servo_init as pwm
 import time    # Import necessary modules
+import os
 
 # ===========================================================================
 # Raspberry Pi pin11, 12, 13 and 15 to realize the clockwise/counterclockwise
@@ -12,7 +13,8 @@ Motor0_B = 12  # pin12
 Motor1_A = 13  # pin13
 Motor1_B = 15  # pin15
 
-FILE_CONFIG = "/home/pi/Sunfounder_Smart_Video_Car_Kit_for_RaspberryPi/server/config"
+#FILE_CONFIG = "/home/pi/Sunfounder_Smart_Video_Car_Kit_for_RaspberryPi/server/config"
+FILE_CONFIG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../server/config")
 
 # ===========================================================================
 # Set channel 4 and 5 of the servo driver IC to generate PWM, thus 

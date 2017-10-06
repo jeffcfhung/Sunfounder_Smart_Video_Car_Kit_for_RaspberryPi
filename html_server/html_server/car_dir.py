@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 import Sunfounder_PWM_Servo_Driver.Servo_init as servo
 import time                # Import necessary modules
+import os
 
-FILE_CONFIG = "/home/pi/Sunfounder_Smart_Video_Car_Kit_for_RaspberryPi/server/config"
+#FILE_CONFIG = "/home/pi/Sunfounder_Smart_Video_Car_Kit_for_RaspberryPi/server/config"
+FILE_CONFIG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../server/config")
 
 def Map(x, in_min, in_max, out_min, out_max):
 	return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min

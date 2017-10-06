@@ -20,11 +20,42 @@ tcpSerSock.bind(ADDR)    # Bind the IP address and port number of the server.
 tcpSerSock.listen(5)     # The parameter of listen() defines the number of connections permitted at one time. Once the 
                          # connections are full, others will be rejected. 
 
+offset_x = 0
+offset_y = 0
+offset = 0
+forward0 = 'True'
+forward1 = 'False'
+try:
+    for line in open('config'):
+        if line[0:8] == 'offset_x':
+            offset_x = int(line[11:-1])
+            print 'offset_x =', offset_x
+        if line[0:8] == 'offset_y':
+            offset_y = int(line[11:-1])
+            print 'offset_y =', offset_y
+        if line[0:8] == 'offset =':
+            offset = int(line[9:-1])
+            print 'offset =', offset
+        if line[0:8] == "forward0":
+            forward0 = line[11:-1]
+            print 'turning0 =', forward0
+        if line[0:8] == "forward1":
+            forward1 = line[11:-1]
+            print 'turning1 =', forward1
+except:
+    print 'no config file, set config to original'
+video_dir.setup(busnum=busnum)
+car_dir.setup(busnum=busnum)
+motor.setup(busnum=busnum) 
+video_dir.calibrate(offset_x, offset_y)
+car_dir.calibrate(offset)
+'''
 video_dir.setup(busnum=busnum)
 car_dir.setup(busnum=busnum)
 motor.setup(busnum=busnum)     # Initialize the Raspberry Pi GPIO connected to the DC motor. 
 video_dir.home_x_y()
 car_dir.home()
+'''
 
 while True:
 	print 'Waiting for connection...'

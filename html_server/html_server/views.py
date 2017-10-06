@@ -6,27 +6,24 @@ import motor
 import os
 
 
+CUR_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # Run camera
-LD_LIBRARY_PATH = "/home/pi/Sunfounder_Smart_Video_Car_Kit_for_RaspberryPi/mjpg-streamer/mjpg-streamer/"
+LD_LIBRARY_PATH = os.path.join(CUR_DIR, "../../mjpg-streamer/mjpg-streamer/")
 
 MJPG_STREAMER_PATH = "mjpg_streamer"
 MJPG_STREAMER_PATH = LD_LIBRARY_PATH + MJPG_STREAMER_PATH
 INPUT_PATH = "input_uvc.so"
 INPUT_PATH = LD_LIBRARY_PATH + INPUT_PATH
-OUTPUT_PATH = "output_http.so -w ./www"
+OUTPUT_PATH = "output_http.so -w %s/www" % LD_LIBRARY_PATH
 OUTPUT_PATH = LD_LIBRARY_PATH + OUTPUT_PATH
 
 command = MJPG_STREAMER_PATH + ' -i \"' + INPUT_PATH + '" -o "' + OUTPUT_PATH + '" &'
+print command
 os.system(command)
 
-video_dir.setup()
-car_dir.setup()
-motor.setup()     # Initialize the Raspberry Pi GPIO connected to the DC motor. 
-video_dir.home_x_y()
-car_dir.home()
-
 # Read config file
-FILE_CONFIG = "/home/pi/Sunfounder_Smart_Video_Car_Kit_for_RaspberryPi/server/config"
+FILE_CONFIG = os.path.join(CUR_DIR, "../../server/config")
 offset = "0"
 offset_x = "0"
 offset_y = "0"
@@ -44,6 +41,16 @@ for line in open(FILE_CONFIG):
 		forward0 = line[11:-1]
 	if line[0:8] == "forward1":
 		forward1 = line[11:-1]
+
+video_dir.setup()
+car_dir.setup()
+motor.setup()     # Initialize the Raspberry Pi GPIO connected to the DC motor. 
+
+video_dir.calibrate(offset_x, offset_y)
+car_dir.calibrate(offset)
+
+video_dir.home_x_y()
+car_dir.home()
 
 def motor_forward(request):
 	motor.forward()
